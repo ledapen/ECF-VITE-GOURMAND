@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: vite_gourmand_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vite_gourmand
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/mysql/vite_gourmand_schema_data.sql:/docker-entrypoint-initdb.d/init.sql
+
+  mongodb:
+    image: mongo:7
+    container_name: vite_gourmand_mongodb
+    ports:
+      - "27017:27017"
