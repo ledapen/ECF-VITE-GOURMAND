@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Ne pas réécrire les fichiers et dossiers qui existent réellement.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Envoyer toutes les autres URL vers le routeur PHP.
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
