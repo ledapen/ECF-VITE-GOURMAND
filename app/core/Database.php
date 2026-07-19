@@ -16,10 +16,16 @@ class Database
 
            $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
 
-            self::$pdo = new PDO($dsn, $user, $password, [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            ]);
+            $options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+];
+
+if ($port === '4000') {
+    $options[PDO::MYSQL_ATTR_SSL_CA] = '/etc/ssl/certs/ca-certificates.crt';
+}
+
+self::$pdo = new PDO($dsn, $user, $password, $options);
         }
 
         return self::$pdo;
